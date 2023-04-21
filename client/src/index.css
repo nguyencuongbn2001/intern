@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ct-menu {
+  @apply font-bold text-2xl font-poppins
+                    cursor-pointer
+                    text-gray-500
+                    hover:opacity-50
+                    hover:text-teal-600
+                    relative
+                    after:absolute
+                    after:bottom-0
+                    after:left-0
+                    after:bg-slate-900
+                    after:w-0
+                    after:hover:w-full
+                    after:transition-all 
+                    after:ease-in-out
+                    after:duration-300
+                    after:h-0.5
+                    hidden
+                    lg:block
+                    uppercase
+}
