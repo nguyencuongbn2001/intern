@@ -1,0 +1,52 @@
+[
+    {
+
+        "id":1,
+        "name":"polo co ngan",
+        "giatien":50000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":2,
+        "name":"ao khoac co ngan",
+        "giatien":10000,
+        "theloai":"ao khoac",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":3,
+        "name":"polo co dai",
+        "giatien":150000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":4,
+        "name":"polo co ngan",
+        "giatien":20000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":5,
+        "name":"polo co ngan",
+        "giatien":50000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":5,
+        "name":"polo co ngan",
+        "giatien":50000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    },
+    {
+        "id":5,
+        "name":"polo co ngan",
+        "giatien":50000,
+        "theloai":"polo",
+        "image":"/src/assets/aopolo.png"
+    }
+]
