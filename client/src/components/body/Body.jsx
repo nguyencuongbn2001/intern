@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Header_body from "./header_body";
-import Content from "./content";
+import Content from "./Content.Body";
 import Loading from "./Loading";
 import data2 from "./data_test.json";
 export default function Body() {
@@ -10,11 +10,9 @@ export default function Body() {
   const [loading,setloading] = useState(false);
   useEffect(()=>{
     setloading(true);
-    console.log('setloading')
     setTimeout(()=>{
       setloading(false);
-      console.log('settimeout')
-    },2000)
+    },1000)
   },[data])
 
   return (
