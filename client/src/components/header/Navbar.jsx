@@ -29,8 +29,7 @@ export default function Navbar(props) {
                 <Menu />
               </div>}     
         <div
-          className="h-20 lg:col-span-1 col-end-7  col-span-2 
-  
+          className="h-20 lg:col-span-1 col-end-7 col-span-2 
         p-6"
         >
           <Shopping/>

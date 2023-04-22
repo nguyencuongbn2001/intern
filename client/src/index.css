@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .ct-menu {
-  @apply font-bold text-2xl font-poppins
+  @apply font-bold text-2xl font-fontcuong
                     cursor-pointer
                     text-gray-500
                     hover:opacity-50
@@ -23,4 +23,13 @@
                     hidden
                     lg:block
                     uppercase
+}
+.blue-circle{
+  animation-delay: 0.1s;
+}
+.green-circle{
+  animation-delay: 0.2s;
+}
+.red-circle{
+  animation-delay: 0.3s;
 }

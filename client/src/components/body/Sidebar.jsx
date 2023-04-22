@@ -3,7 +3,7 @@ import React from "react";
 import { AiFillHeart,AiOutlineDollarCircle } from "react-icons/ai";
 export default function Sidebar() {
   return (
-    <div className="h-full w-1/6  mt-2 font-poppins px-6 border-zinc-300 border hidden lg:block">
+    <div className="h-full w-1/6  mt-2 font-fontcuong pl-6 border-zinc-300 border hidden lg:block">
       <span className="font-bold">Lọc sản phẩm:</span>
       <div className="flex gap-1 mt-2">
         <AiFillHeart className="mt-1 text-red-800"></AiFillHeart>
