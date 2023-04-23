@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useContext } from "react";
 import { MyContext } from "../context/Context";
 import { GiCancel } from "react-icons/gi";
 export default function Modal() {

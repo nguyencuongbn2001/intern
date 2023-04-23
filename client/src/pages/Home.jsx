@@ -4,6 +4,7 @@ import Navbar from "./../components/header/Navbar";
 import Body from "../components/body_home/body";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
+
 export default function Home() {
   return (
     <>
@@ -11,7 +12,7 @@ export default function Home() {
         <Navbar Menu = {true}/>
         <Body/>
         <Footer/>
-        <Modal></Modal>
+        <Modal/>
       </div>
     </>
   );

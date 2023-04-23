@@ -1,4 +1,3 @@
-import React from "react";
 import Nameproduct from "./Name.product";
 import Imageproduct from "./Image.product";
 import Detailproduct from "./Detail.product";

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import aopolo from '../../assets/aopolo.png'
 export default function Imageproduct(props) {
   return (
