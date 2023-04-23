@@ -53,7 +53,7 @@ export default function Content() {
                cursor-pointer 
                text-center
                text-base
-               py-2
+               py-3
                bottom-12
                hover:bg-amber-700
                hidden

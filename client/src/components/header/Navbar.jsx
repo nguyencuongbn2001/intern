@@ -22,17 +22,23 @@ export default function Navbar(props) {
         <div className="h-20 lg:col-span-1 p-4 col-span-3 ">
           <Logo></Logo>
         </div>
-        {open && <div
-                className="h-20 lg:col-span-4 
-              p-6"
-              >
-                <Menu />
-              </div>}     
+        {open?<div
+          className={`h-20 lg:col-span-4 
+              p-6 ${open ? "block" : "hidden"}`}
+        >
+          <Menu />
+        </div>:
+         <div
+         className={`h-20 lg:col-span-4 
+             p-6`}
+       >
+       </div>}
+        
         <div
           className="h-20 lg:col-span-1 col-end-7 col-span-2 
         p-6"
         >
-          <Shopping/>
+          <Shopping />
         </div>
       </div>
     </>

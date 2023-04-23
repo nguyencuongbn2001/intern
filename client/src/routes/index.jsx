@@ -4,10 +4,12 @@ import Home from "../pages/Home.jsx";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Error from "../pages/Error.jsx";
 import Detail from "../pages/Detail.jsx";
+import Card from "./../pages/Card";
+import ContextProvide from "../components/context/Context.jsx";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Root = () => {
-  return <Outlet />;
+  return <ContextProvide><Outlet /></ContextProvide>;
 };
 const router = createBrowserRouter([
   {
@@ -21,7 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/detail/:id",
         element: <Detail />,
-      }
+      },
+      {
+        path: "/card",
+        element: <Card />,
+      },
     ],
   },
 ]);
