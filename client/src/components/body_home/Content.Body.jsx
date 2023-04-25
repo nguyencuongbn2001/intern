@@ -1,34 +1,42 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import data from "./data_test.json";
 import Pagniation from "./Pagniation";
 import { useNavigate  } from "react-router-dom";
+import { useQuery } from '@apollo/client';
+import * as Query from '../../graphql/Query.jsx';
+import Loading from "../../pages/Loading"; 
+import Error from "./../../pages/Error";
 export default function Content() {
   const navigate = useNavigate();
+  const { loading, error, data } = useQuery(Query.GetAllClothes); 
+  if (loading) return  <Loading/>;
+  if (error) return <Error/>;  
   return (
     <>
     <div className="flex flex-col">
-    <div className=" w-5/6 grid lg:grid-cols-3 md:grid-cols-2 lg:ml-16 ml-10">
-        {data.map((content) => {
+    <div className=" w-5/6 grid lg:grid-cols-4 md:grid-cols-2 lg:ml-16 ml-10">
+        {data.getClothes.map((content) => {
           return (
             <div  
-              key={content.id}
-              className="col-span-1 border-gray-300 border flex flex-wrap justify-center items-center ml-2 mt-2 group relative font-fontcuong "
+              key={content._id}
+              className="col-span-1 w-52 mx-10 my-4 border-gray-300 rounded border   flex flex-wrap justify-center items-center ml-2 mt-2 group relative font-fontcuong "
             >
               <div 
-              onClick={()=>{ navigate(`/detail/${content.id}`)}}
-                className = {` w-40 
+              onClick={()=>{ navigate(`/detail/${content._id}`)}}
+                className = {` w-52 m 
                 cursor-pointer
-                h-40 
-                bg-contain 
-                bg-no-repeat      
+                h-52
+                bg-cover 
+                bg-no-repeat  
+                flex 
+                justify-center    
                     after:absolute
                     after:bottom-0
                     after:bg-slate-50
                     after:opacity-80
                     after:h-0
                     after:left-0
-                    after:hover:h-52
+                    after:hover:h-64
                     after:transition-all 
                     after:ease-in-out
                     after:duration-300
@@ -40,9 +48,9 @@ export default function Content() {
                     after:hover:py-20
                     `}
                  
-                style={{ backgroundImage: `url(${content.image})`}}
+                style={{ backgroundImage: `url(${content.hinhanh })`}}
               ></div>
-              <div className="w-full text-center uppercase">{content.name}</div>
+              <div className="w-full text-center uppercase">ao polo </div>
               <div className="w-full text-center ">{content.giatien}</div>
               <div className= {`w-40
                 absolute

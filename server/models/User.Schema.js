@@ -17,10 +17,6 @@ const schema = new mongoose.Schema({
     phone: {
         type:Number,
     },
-    order: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Clothes"
-    },
     level:{
         type:String,
         require:true

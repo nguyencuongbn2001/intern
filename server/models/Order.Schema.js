@@ -1,28 +1,14 @@
 import mongoose from "mongoose";
 const schema = new mongoose.Schema({ 
-    orderby:{
+    orderbyid:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    },
-    name: {
-        type:String,
-        require:true
     },
     soluong: {
         type:Number,
         require:true
     },
-
-    address: {
-        type:String,
-        require:true
-    },
-
-    phone: {
-        type:Number,
-        require:true
-    },
-    Status:{
+    status:{
         type:String,
         require:true
     }

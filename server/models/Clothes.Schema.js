@@ -21,7 +21,15 @@ const schema = new mongoose.Schema({
     giatien: {
         type:Number,
         require:true
-    }
+    },
+    theloai:{
+        type:String,
+        require:true
+    },
+    hinhanh:{
+        type:String,
+        require:true
+    },
 },{timestamps:true});
 
 const Clothes = mongoose.model('Clothes', schema);

@@ -5,9 +5,9 @@ export const MyContext = React.createContext();
 
 const ContextProvide = ({ children }) => {
   const [opencardlogin,setopencardlogin] = useState(false);
-  console.log("🚀 ~ file: Context.jsx:8 ~ ContextProvide ~ opencardlogin:", opencardlogin)
+  const [isloading,setisloading] = useState(false)
   
-  return <MyContext.Provider value={{opencardlogin,setopencardlogin}}>
+  return <MyContext.Provider value={{opencardlogin,setopencardlogin,isloading,setisloading}}>
     {children}
     </MyContext.Provider>;
 };

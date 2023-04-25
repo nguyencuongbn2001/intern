@@ -6,11 +6,11 @@ import Error from "../pages/Error.jsx";
 import Detail from "../pages/Detail.jsx";
 import Card from "./../pages/Card";
 import ContextProvide from "../components/context/Context.jsx";
-
 // eslint-disable-next-line react-refresh/only-export-components
 const Root = () => {
   return <ContextProvide><Outlet /></ContextProvide>;
 };
+
 const router = createBrowserRouter([
   {
     element: <Root />,
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/detail/:id",
+        path: "/detail/:clothesId",
         element: <Detail />,
       },
       {

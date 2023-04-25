@@ -10,8 +10,9 @@ const { json } = pkg;
 import { resolvers } from './schema/resolvers.js';
 import { typeDefs } from './schema/typeDefs.js';
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
 import { verifyToken } from './AuthJWT/Jwt.js';
+import * as dotenv from 'dotenv';
+
 dotenv.config()
 const app = express();
 const httpServer = http.createServer(app);
@@ -27,14 +28,18 @@ app.use(
   json(),
   expressMiddleware(server, {
     context: async ({ req }) => { 
-      const verified = verifyToken(req.headers.token);
-      return {verified}
+      if(req.headers.token){
+        const verified = verifyToken(req.headers.token);
+        return {verified}
+      }else return null
     },
   }),
 );
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gxsuafq.mongodb.net/test`)
+const URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gxsuafq.mongodb.net/test`;
+mongoose.set('strictQuery',false)
+mongoose.connect(URI,{useNewUrlParser :true,  useUnifiedTopology: true})
   .then(async () => {
     await new Promise((resolve) => httpServer.listen({ port: process.env.PORT || 8080 }, resolve));
-    console.log(`🚀 Server ready at http://localhost:8080/graphql`)
+    console.log(`Server ready at http://localhost:8080/graphql`)
     console.log('Connect mongodb successfull')
   });
