@@ -6,8 +6,8 @@ const typeDefs = `#graphql
      address:String,
      phone:Int,
      level:String!,
-     order:[Order]
-     cart:[Cart]
+     Token:String,
+     RefreshToken:String
   },
   type Clothes{
      _id: ID,
@@ -17,7 +17,8 @@ const typeDefs = `#graphql
      soluong:Int!,
      giatien:Int!,
      theloai:String!,
-     hinhanh:String!
+     hinhanh:String!,
+     mathang:String!
   },
   type Order{
     user:User,
@@ -31,12 +32,13 @@ const typeDefs = `#graphql
      soluong:Int
   },
   type Query{
-    getClothes:[Clothes],
+    getClothes(giatien:Int,mathang:String,theloai:String):[Clothes],
     getDetailClothes(clothesId: String!):Clothes
   },
   type Mutation{
-    addUser(email:String!, password:String!,level:String!):User, 
-    addClothes( name:String!,chatlieu:String!,xuatxu:String!, soluong:Int!, giatien:Int!,theloai:String!,hinhanh:String!):Clothes
+    addUser(email:String!, password:String!):User, 
+    addClothes( name:String!,chatlieu:String!,xuatxu:String!, soluong:Int!, giatien:Int!,theloai:String!,hinhanh:String!, mathang:String!):Clothes
+    login(email:String!, password:String!):User 
   }
 `;
 export { typeDefs }

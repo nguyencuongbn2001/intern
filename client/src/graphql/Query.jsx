@@ -1,17 +1,17 @@
 import { gql } from '@apollo/client';
-const GetAllClothes = gql`
-query Query {
-  getClothes {
+const getAllClothes = gql`
+query GetClothes($giatien: Int, $mathang: String,$theloai:String) {
+  getClothes(giatien: $giatien, mathang: $mathang,theloai:$theloai) {
     _id
     chatlieu
     giatien
     hinhanh
-    soluong
+    mathang
     name
     theloai
     xuatxu
   }
-} 
+}
 `;
 const getDetailClothes = gql`query Query($clothesId: String!) {
   getDetailClothes(clothesId: $clothesId) {
@@ -23,5 +23,6 @@ const getDetailClothes = gql`query Query($clothesId: String!) {
     xuatxu
   }
 }`;
+
 // eslint-disable-next-line react-refresh/only-export-components
-export {GetAllClothes,getDetailClothes}
+export {getAllClothes,getDetailClothes}

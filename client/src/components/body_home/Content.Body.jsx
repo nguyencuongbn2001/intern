@@ -1,29 +1,33 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Pagniation from "./Pagniation";
-import { useNavigate  } from "react-router-dom";
-import { useQuery } from '@apollo/client';
-import * as Query from '../../graphql/Query.jsx';
-import Loading from "../../pages/Loading"; 
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import * as Query from "../../graphql/Query.jsx";
+import { MyContext } from "../context/Context";
+import Loading from "../../pages/Loading";
 import Error from "./../../pages/Error";
 export default function Content() {
   const navigate = useNavigate();
-  const { loading, error, data } = useQuery(Query.GetAllClothes); 
-  if (loading) return  <Loading/>;
-  if (error) return <Error/>;  
+  const {theloai,giatien,mathang} = useContext(MyContext);
+  const { loading, error, data } = useQuery(Query.getAllClothes,{variables:{giatien,mathang,theloai}});
+  if (loading) return <Loading />;
+  if (error) return <Error />;
   return (
     <>
-    <div className="flex flex-col">
-    <div className=" w-5/6 grid lg:grid-cols-4 md:grid-cols-2 lg:ml-16 ml-10">
-        {data.getClothes.map((content) => {
-          return (
-            <div  
-              key={content._id}
-              className="col-span-1 w-52 mx-10 my-4 border-gray-300 rounded border   flex flex-wrap justify-center items-center ml-2 mt-2 group relative font-fontcuong "
-            >
-              <div 
-              onClick={()=>{ navigate(`/detail/${content._id}`)}}
-                className = {` w-52 m 
+      <div className="flex flex-col">
+        <div className=" w-5/6 grid lg:grid-cols-4 md:grid-cols-2 lg:ml-16 ml-10">
+          {data?.getClothes.map((content) => {
+            return (
+              <div
+                key={content._id}
+                className="col-span-1 w-52 h-72 mx-10 my-4 border-gray-300 rounded border  flex flex-wrap justify-center items-center ml-2 mt-2 group relative font-fontcuong "
+              >
+                <div
+                  onClick={() => {
+                    navigate(`/detail/${content._id}`);
+                  }}
+                  className={` w-52 m 
                 cursor-pointer
                 h-52
                 bg-cover 
@@ -36,7 +40,7 @@ export default function Content() {
                     after:opacity-80
                     after:h-0
                     after:left-0
-                    after:hover:h-64
+                    after:hover:h-72
                     after:transition-all 
                     after:ease-in-out
                     after:duration-300
@@ -47,12 +51,12 @@ export default function Content() {
                     after:text-center
                     after:hover:py-20
                     `}
-                 
-                style={{ backgroundImage: `url(${content.hinhanh })`}}
-              ></div>
-              <div className="w-full text-center uppercase">ao polo </div>
-              <div className="w-full text-center ">{content.giatien}</div>
-              <div className= {`w-40
+                  style={{ backgroundImage: `url(${content.hinhanh})` }}
+                ></div>
+                <div className="w-full text-center uppercase overflow-hidden">{content.name}</div>
+                <div className="w-full text-center ">{content.giatien}</div>
+                <div
+                  className={`w-40
                 absolute
                bg-slate-600 
                text-white 
@@ -71,14 +75,16 @@ export default function Content() {
                group-hover:block 
                group-hover:transition-all
                group-hover:animate-fadeIn
-              `}>Thêm giỏ hàng</div>
-            </div>
-          );
-        })}
+              `}
+                >
+                  Thêm giỏ hàng
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <Pagniation />
       </div>
-      <Pagniation/>
-    </div>
-      
     </>
   );
 }

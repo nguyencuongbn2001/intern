@@ -20,6 +20,10 @@ const schema = new mongoose.Schema({
     level:{
         type:String,
         require:true
+    },
+    refreshToken:{
+        type:String,
+        require:true
     }
 },{timestamps:true});
 

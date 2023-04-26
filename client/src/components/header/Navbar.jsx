@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React,{useContext} from "react";
 import Logo from "./Logo";
 import Menu from "./Menu";
 import Shopping from "./Shopping";
-
+import { MyContext } from "../context/Context";
 export default function Navbar(props) {
   // eslint-disable-next-line react/prop-types
   const open = props.Menu;
-
+  const {setgiatien,setmathang} = useContext(MyContext)
   return (
     <>
       <div
@@ -18,8 +18,8 @@ export default function Navbar(props) {
                   grid-cols-6 
                   border-slate-400
                   "
-      >
-        <div className="h-20 lg:col-span-1 p-4 col-span-3 ">
+   >
+        <div className="h-20 lg:col-span-1 p-4 col-span-3 " onClick={()=>{setmathang(null), setgiatien(null)}}>
           <Logo></Logo>
         </div>
         {open?<div

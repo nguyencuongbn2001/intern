@@ -30,6 +30,10 @@ const schema = new mongoose.Schema({
         type:String,
         require:true
     },
+    mathang:{
+        type:String,
+        require:true
+    }
 },{timestamps:true});
 
 const Clothes = mongoose.model('Clothes', schema);

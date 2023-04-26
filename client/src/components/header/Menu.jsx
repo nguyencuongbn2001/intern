@@ -1,8 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom";
-
+import { MyContext } from "../context/Context";
 export default function Menu() {
+  const {mathang,setmathang} = useContext(MyContext)
+  console.log("🚀 ~ file: Menu.jsx:7 ~ Menu ~ mathang:", mathang)
   return (
     <>
       <ul
@@ -13,12 +15,12 @@ export default function Menu() {
             justify-center
             "
       >
-        <li className=" ct-menu ">
+        <li className=" ct-menu " onClick={()=>{setmathang("Áo")}}>
           <Link>
             <span>Áo</span>
           </Link>
         </li>
-        <li
+        <li onClick={()=>{setmathang("Quần")}}
           className=" ct-menu
                     "
         >
@@ -26,7 +28,7 @@ export default function Menu() {
             <span>Quần</span>
           </Link>
         </li>
-        <li
+        <li onClick={()=>{setmathang("Giày")}}
           className="ct-menu
                     "
         >
@@ -34,12 +36,12 @@ export default function Menu() {
             <span>Giày</span>
           </Link>
         </li>
-        <li
+        <li onClick={()=>{setmathang("Đồng Hồ")}}
           className="ct-menu
                     "
         >
           <Link>
-            <span>Mũ</span>
+            <span>Đồng Hồ</span>
           </Link>
         </li>
       </ul>
