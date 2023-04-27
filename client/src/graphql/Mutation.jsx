@@ -14,4 +14,15 @@ mutation Mutation($email: String!, $password: String!) {
       Token
     }
   }`;
-export {registerUser,loginUser}
+const addCart = gql`
+mutation AddCart($soluong: Int!, $clothesId: ID!) {
+  addCart(soluong: $soluong, clothesId: $clothesId) {
+    clothes {
+      giatien
+      hinhanh
+      name
+    }
+    soluong
+  }
+}`;
+export {registerUser,loginUser,addCart}

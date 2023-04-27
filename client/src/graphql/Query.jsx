@@ -23,6 +23,16 @@ const getDetailClothes = gql`query Query($clothesId: String!) {
     xuatxu
   }
 }`;
-
+const getCart = gql`
+query GetCart {
+  getCart {
+    clothes {
+      giatien
+      hinhanh
+      _id
+    }
+    soluong
+  }
+}`;
 // eslint-disable-next-line react-refresh/only-export-components
-export {getAllClothes,getDetailClothes}
+export {getAllClothes,getDetailClothes,getCart}

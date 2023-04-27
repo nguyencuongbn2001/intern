@@ -3,8 +3,7 @@ import React,{useContext} from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/Context";
 export default function Menu() {
-  const {mathang,setmathang} = useContext(MyContext)
-  console.log("🚀 ~ file: Menu.jsx:7 ~ Menu ~ mathang:", mathang)
+  const {setmathang} = useContext(MyContext)
   return (
     <>
       <ul

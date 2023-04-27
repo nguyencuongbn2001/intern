@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import Shopping from "./Shopping";
 import { MyContext } from "../context/Context";
 export default function Navbar(props) {
+
   // eslint-disable-next-line react/prop-types
   const open = props.Menu;
   const {setgiatien,setmathang} = useContext(MyContext)
@@ -38,7 +39,7 @@ export default function Navbar(props) {
           className="h-20 lg:col-span-1 col-end-7 col-span-2 
         p-6"
         >
-          <Shopping />
+          <Shopping on={`${props.on}`}/>
         </div>
       </div>
     </>

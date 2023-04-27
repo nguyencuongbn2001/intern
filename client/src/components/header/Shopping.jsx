@@ -12,25 +12,25 @@ export default function Shopping() {
   if(localStorage.getItem('token')){
       setislogin(true)
   }
-  const opencart = ()=>{
+  const opencart = async ()=>{
     if(localStorage.getItem('token'))
     {
-      navigate(`/card`);
+      navigate(`/cart`);
     }else{
       setopencardlogin(true)
     } 
   }
   return (
     <div className="flex w-full gap-4">
-      <div className="relative w-1/3  h-full hidden lg:block">
+   <div className={`relative w-1/3  ${open ? "block": "hidden"} h-full`}>
         <AiOutlineShoppingCart
-          className="h-10 w-full text-gray-500 cursor-pointer"
+          className={`h-10 w-full text-gray-500 cursor-pointer  ${open ? "block" : "hidden"}`}
           onClick={opencart}
         />
         <span className="rounded-full font-bold text-lg h-6 w-7 flex items-center justify-center absolute left-8 bottom-6 bg-pink-700 text-white">
           10
         </span>
-      </div>
+      </div>    
       {islogin ? (
         <div
           style={{ backgroundImage: `url(${logologin})` }}

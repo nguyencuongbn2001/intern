@@ -29,8 +29,8 @@ app.use(
   json(),
   expressMiddleware(server, {
     context: async ({ req }) => { 
-      if(req.headers.token){
-        const verified = verifyToken(req.headers.token);
+      if(req.headers.authorization){
+        const verified = verifyToken(req.headers.authorization);
         if(!verified){
           throw new GraphQLError('User is not authenticated',{  extensions: {
             code: 'UNAUTHENTICATED',
