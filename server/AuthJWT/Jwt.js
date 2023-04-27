@@ -6,7 +6,6 @@ const verifyToken =  (token) =>{
         return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET
 		);
       } catch(error) {
-        console.log(`Error in decode access token: ${error}`);
         return null;
       }
 }

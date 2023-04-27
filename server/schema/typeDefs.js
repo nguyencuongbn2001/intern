@@ -33,12 +33,14 @@ const typeDefs = `#graphql
   },
   type Query{
     getClothes(giatien:Int,mathang:String,theloai:String):[Clothes],
-    getDetailClothes(clothesId: String!):Clothes
+    getDetailClothes(clothesId: String!):Clothes,
+    getCart(token:String!):Cart
   },
   type Mutation{
     addUser(email:String!, password:String!):User, 
     addClothes( name:String!,chatlieu:String!,xuatxu:String!, soluong:Int!, giatien:Int!,theloai:String!,hinhanh:String!, mathang:String!):Clothes
-    login(email:String!, password:String!):User 
+    login(email:String!, password:String!):User,
+    addCart(token:String!,_id:ID!,soluong:Int!):Cart 
   }
 `;
 export { typeDefs }

@@ -10,26 +10,34 @@ import { useNavigate } from "react-router-dom";
 export default function Modal() {
   const { register, handleSubmit,reset } = useForm();
   const navigate  = useNavigate()
-  const { opencardlogin,setopencardlogin } = useContext(MyContext);
+  const { opencardlogin,setopencardlogin,setislogin } = useContext(MyContext);
   const [isloginform,setisloginform ]= useState(true);
-    // const [registerUser,{ registerloading:loading,registererror: error,registerdata: data }] = useMutation(Mutation.registerUser);
+   const [registerUser] = useMutation(Mutation.registerUser,{
+    onError: (error) => alert(error),
+    onCompleted: (data) =>{alert("Register successfull")
+    localStorage.setItem('token',data.login.Token)
+    setopencardlogin(false)
+   }});
    const [loginUser] = useMutation(Mutation.loginUser,{
-    onError: (error) => console.log(error),
-    onCompleted: (data) =>{console.log(data);}
+    onError: (error) => alert(error),
+    onCompleted: (data) =>{localStorage.setItem('token',data.login.Token)
+    alert("Login success")
+    setopencardlogin(false)
+  }
     },
   );
   const onSubmit1 = async (data)=> {
+    await loginUser({variables:{email:data.Email,password:data.Password}})
+  }
+  const onSubmit2 = async (data)=>{
+    if( data.RePassword && data.RePassword !== data.Password){
+      alert("Nhập lại RePassword ")
+    }
     if(data.RePassword && data.Password.length < 6){
       alert("Password quá ngắn ")
     }
-    if( data.RePassword && data.RePassword !== data.Password){
-      alert("Password không giống RePassword ")
-    }
-    await loginUser({variables:{email:data.Email,password:data.Password}})
-    
+    await  registerUser({variables:{email:data.Email,password:data.Password}})
   }
-  const onSubmit2 = ()=>{}
-
   return (
     <>
     {isloginform? 

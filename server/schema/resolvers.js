@@ -32,6 +32,10 @@ const resolvers = {
       const ClothesId = args.clothesId;
       const res = await Clothes.findById(ClothesId);
       return res
+    },
+    getCart: async (parent, args, context)=>{
+      const query =  Cart.find().where('email').equals(context.email)
+      return query
     }
   },
   Mutation: {
@@ -57,7 +61,6 @@ const resolvers = {
       const passwordhash = bcrypt.hashSync(args.password, salt);
       let token = generateAccessToken(args.email,'user');
       let RefreshToken = generateRefreshToken(args.email,'user');
-      console.log("🚀 ~ file: resolvers.js:60 ~ addUser: ~ RefreshToken:", RefreshToken)
       const res = new User({email:args.email,password:passwordhash,refreshToken:RefreshToken,level:'user'})
       await res.save()
       data.Token = token;
@@ -77,7 +80,8 @@ const resolvers = {
           },})
         }
       const query = await User.find().where('email').equals(`${args.email}`)
-      if(!query[0].password){
+      if(!query[0]){
+        
         throw new GraphQLError('Vui lòng nhập lại email ',{ extensions: {
           code: 'BAD_USER_INPUT',
         },})  
@@ -92,6 +96,9 @@ const resolvers = {
         data.Token = token;
         data.RefreshToken = query[0].refreshToken;
         if(data) return data
+    },
+    addCart: async (parent, args, context)=>{
+      
     }
      
   }

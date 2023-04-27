@@ -12,6 +12,7 @@ import { typeDefs } from './schema/typeDefs.js';
 import mongoose from 'mongoose';
 import { verifyToken } from './AuthJWT/Jwt.js';
 import * as dotenv from 'dotenv';
+import { GraphQLError } from 'graphql';
 
 dotenv.config()
 const app = express();
@@ -30,7 +31,12 @@ app.use(
     context: async ({ req }) => { 
       if(req.headers.token){
         const verified = verifyToken(req.headers.token);
-        return {verified}
+        if(!verified){
+          throw new GraphQLError('User is not authenticated',{  extensions: {
+            code: 'UNAUTHENTICATED',
+            http: { status: 401 },
+          },})
+        }else return verified
       }else return null
     },
   }),
