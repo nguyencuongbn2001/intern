@@ -79,9 +79,9 @@ export default function Modal() {
           <div className=" flex items-center justify-center text-center font-fontcuong lg:text-2xl mt-4 font-semibold text-base mb-3 lg:mb-7">Register</div>     
           <GiCancel className="mt-1 cursor-pointer h-6 w-6 text-slate-400 absolute right-0 top-0 lg:w-8 lg:h-8" onClick ={()=>{setopencardlogin(false), setisloginform(true)}}></GiCancel>
        </div>
-       <Inputmodal register={register} label={'Email'} required/>
-       <Inputmodal register={register} label={'Password'} type={'password'} required/>
-       <Inputmodal register={register} label={'RePassword'} type={'password'} required/>
+       <Inputmodal register={register} registerlabel={'Email'} label={'Email'} required/>
+       <Inputmodal register={register} registerlabel={'Password'} label={'Password'} type={'password'} required/>
+       <Inputmodal register={register} registerlabel={'RePassword'} label={'RePassword'} type={'password'} required/>
         <button type="submit"
           className="bg-red-500 w-10/12 h-12 lg:ml-12  ml-4 md:ml-10 rounded  flex items-center justify-center text-white 
         font-fontcuong  

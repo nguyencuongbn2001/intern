@@ -1,11 +1,11 @@
 // eslint-disable-next-line react/prop-types
-export default function Inputmodal({ label, register, required,type }) {
+export default function Inputmodal({ registerlabel,label, register, required,type }) {
 
   // eslint-disable-next-line react/prop-types
   return (
     <div className="relative w-full">
       <div className=" flex-col mt-10 justify-center lg:ml-12 flex ml-4 md:ml-10">
-        <input type={type} {...register(label, { required })}  placeholder=" " required className="
+        <input defaultValue={''} type={type} {...register(registerlabel, { required })}  placeholder=" " required className="
         lg:h-12 
         peer 
         w-11/12 

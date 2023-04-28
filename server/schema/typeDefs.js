@@ -34,7 +34,9 @@ const typeDefs = `#graphql
   type Query{
     getClothes(giatien:Int,mathang:String,theloai:String):[Clothes],
     getDetailClothes(clothesId: String!):Clothes,
-    getCart:[Cart]
+    getCart:[Cart],
+    getSoluongCart:Cart,
+    getUser(firstname:String,lastname:String,phone:Int,address:String):User
   },
   type Mutation{
     addUser(email:String!, password:String!):User, 

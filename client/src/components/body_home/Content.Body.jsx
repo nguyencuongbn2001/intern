@@ -10,15 +10,24 @@ import Loading from "../../pages/Loading";
 import Error from "./../../pages/Error";
 export default function Content() {
   const navigate = useNavigate();
-  const {theloai,giatien,mathang} = useContext(MyContext);
-  const { loading, error, data } = useQuery(Query.getAllClothes,{variables:{giatien,mathang,theloai}});
-  const [addToCart] = useMutation(Mutation.addCart,{
-    onError:  (error) =>  console.log(error),
-    onCompleted:(data)=> console.log(data)
-  })
-  const  addCart = async (clothesId) => {
-    await addToCart({variables:{clothesId:clothesId,soluong:1 }})
-  }
+  const { theloai, giatien, mathang, setsoluongcart, soluongcart } =
+    useContext(MyContext);
+  const { loading, error, data } = useQuery(Query.getAllClothes, {
+    variables: { giatien, mathang, theloai },
+  });
+  const [addToCart] = useMutation(Mutation.addCart, {
+    onError: (error) => console.log(error),
+    onCompleted: (data) => console.log(data),
+    update: () => setsoluongcart(soluongcart + 1),
+  });
+  useQuery(Query.soluongCart, {
+    onError: (error) => console.log(error),
+    onCompleted: (data) => setsoluongcart(data.getSoluongCart.soluong),
+    pollInterval:200
+  });
+  const addCart = async (clothesId) => {
+    await addToCart({ variables: { clothesId: clothesId, soluong: 1 } });
+  };
   if (loading) return <Loading />;
   if (error) return <Error />;
   return (
@@ -61,9 +70,14 @@ export default function Content() {
                     `}
                   style={{ backgroundImage: `url(${content.hinhanh})` }}
                 ></div>
-                <div className="w-full text-center uppercase overflow-hidden">{content.name}</div>
+                <div className="w-full text-center uppercase overflow-hidden">
+                  {content.name}
+                </div>
                 <div className="w-full text-center ">{content.giatien}</div>
-                <div onClick={()=>{addCart(content._id)}}
+                <div
+                  onClick={() => {
+                    addCart(content._id);
+                  }}
                   className={`w-40
                 absolute
                bg-slate-600 

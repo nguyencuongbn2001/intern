@@ -4,7 +4,7 @@ import Navbar from "./../components/header/Navbar";
 import Body from "../components/body_home/body";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
-import { Link } from "react-router-dom";
+
 
 export default function Home() {
   return (

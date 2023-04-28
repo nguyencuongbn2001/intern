@@ -39,7 +39,7 @@ export default function Navbar(props) {
           className="h-20 lg:col-span-1 col-end-7 col-span-2 
         p-6"
         >
-          <Shopping on={`${props.on}`}/>
+          <Shopping/>
         </div>
       </div>
     </>

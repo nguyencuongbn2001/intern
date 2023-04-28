@@ -7,10 +7,10 @@ import Detail from "../pages/Detail.jsx";
 import Cart from "../pages/Cart.jsx";
 import ContextProvide from "../components/context/Context.jsx";
 import Loading from "../pages/Loading.jsx";
+import User from "../pages/User.jsx";
 // eslint-disable-next-line react-refresh/only-export-components
 const Root = () => {
   // eslint-disable-next-line no-undef
- 
   return <ContextProvide><Outlet /></ContextProvide>;
 };
 
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/user",
+        element: <User />,
       },
     ],
   },

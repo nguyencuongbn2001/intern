@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
         ref:'Clothes'
     },
     soluong:{
-        type: String,
+        type: Number,
         require:true
     }
 },{timestamps:true});

@@ -9,8 +9,9 @@ const ContextProvide = ({ children }) => {
   const [mathang,setmathang] = useState(null)
   const [theloai,settheloai] = useState(null)
   const [islogin,setislogin] = useState(false)
-
-  return <MyContext.Provider value={{opencardlogin,setopencardlogin,giatien,setgiatien,mathang,setmathang,theloai,settheloai,islogin,setislogin}}>
+  const [openshoping, setopenshoping]  = useState(true)
+  const [soluongcart,setsoluongcart] = useState()
+  return <MyContext.Provider value={{openshoping,setopenshoping,opencardlogin,setopencardlogin,giatien,setgiatien,mathang,setmathang,theloai,settheloai,islogin,setislogin,soluongcart,setsoluongcart  }}>
     {children}
     </MyContext.Provider>;
 };

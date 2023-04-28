@@ -14,18 +14,18 @@ const resolvers = {
       const query = Clothes.find();
 
       if (args.mathang) {
-         query.where('mathang').equals(`${args.mathang}`)
+        query.where('mathang').equals(`${args.mathang}`)
       }
       if (args.theloai) {
-         query.where('theloai').equals(`${args.theloai}`)
+        query.where('theloai').equals(`${args.theloai}`)
       }
       if (args.giatien) {
         if (args.giatien === 50000) {
-           query.find().where('giatien').gt(49999).lt(100001);
+          query.find().where('giatien').gt(49999).lt(100001);
         } else if (args.giatien === 100000) {
-           query.find().where('giatien').gt(99999).lt(499999);
+          query.find().where('giatien').gt(99999).lt(499999);
         } else {
-           query.find().where('giatien').gt(499999).lt(1000000);
+          query.find().where('giatien').gt(499999).lt(1000000);
         }
       }
       return query
@@ -36,7 +36,7 @@ const resolvers = {
       return res
     },
     getCart: async (parent, args, context) => {
-      if(!context.email){
+      if (!context.email) {
         throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năng này', {
           extensions: {
             code: 'BAD_USER_INPUT',
@@ -44,16 +44,63 @@ const resolvers = {
         })
       }
       const query = await User.find().where('email').equals(`${context.email}`)
-      const res = await Cart.where('user').equals(query[0]._id);
+      const res = await Cart.find().where('user').equals(query[0]._id);
+      console.log("🚀 ~ file: resolvers.js:48 ~ getCart: ~ query:", query)
       return res
-    },  
+    },
+    getSoluongCart: async (parent, args, context) => {
+      let data = [];
+      if (!context.email) {
+        data.soluong = 0
+      } else {
+        const query = await User.find().where('email').equals(`${context.email}`);
+        const res = await Cart.find().where('user').equals(query[0]._id);
+        if (res.length > 0) {
+          await Cart.aggregate([{ $match: { user: query[0]._id } }, { $group: { _id: query[0]._id, soluong: { $sum: "$soluong" } } }]).exec()
+            .then(results => {
+              data.soluong = results[0].soluong
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+        else {
+          data.soluong = 0
+        }
+      }
+      if (data) return data
+    },
+    getUser: async (parent, args, context)=>{
+      let data = [];
+      const query = await User.find().where('email').equals(`${context.email}`)
+      if (!query) {
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'BAD_USER',
+          },
+        })
+      }
+      if(args.phone)
+      {
+        if(validator.isMobilePhone(String(args.phone),['vi-VN']) === false){
+          throw new GraphQLError('Số điện thoại không hợp lệ', {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+            },
+          })
+        }
+      }
+      
+       
+    }
+
   },
-  Cart:{
-    clothes: async(parent, args,context) => {
+  Cart: {
+    clothes: async (parent, args, context) => {
       const clothes = await Clothes.findById(parent.clothes);
       return [clothes]
     }
-    },
+  },
   Mutation: {
     addUser: async (parent, args) => {
       let data = [];
@@ -126,7 +173,7 @@ const resolvers = {
       if (data) return data
     },
     addCart: async (parent, args, context) => {
-      if(!context.email){
+      if (!context.email) {
         throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
           extensions: {
             code: 'BAD_USER_INPUT',
@@ -135,24 +182,31 @@ const resolvers = {
       }
       const query = await User.find().where('email').equals(`${context.email}`)
       if (!query) {
+
         throw new GraphQLError('Có lỗi xảy ra', {
           extensions: {
             code: 'BAD_USER',
           },
         })
       }
-      const data = await Cart.find().where('clothes').equals(args.clothesId)
-      if(data.length !== 0){
-            let soluongnew  = parseInt(data[0].soluong)  + parseInt(args.soluong);
-            await Cart.findByIdAndUpdate(data[0]._id,{soluong:soluongnew})
+      const queryuser = await Cart.find().where('user').equals(query[0]._id);
+      if (queryuser.length > 0) {
+        const data = await Cart.find().where('user').equals(query[0]._id).where('clothes').equals(args.clothesId)
+        if (data.length !== 0) {
+          let soluongnew = parseInt(data[0].soluong) + parseInt(args.soluong);
+          await Cart.findByIdAndUpdate(data[0]._id, { soluong: soluongnew })
+        }
+        else {
+          const res = new Cart({ user: query[0]._id, soluong: args.soluong, clothes: args.clothesId });
+          await res.save();
+        }
       }
-      else{
-        
-             const res = new Cart({ user: query[0]._id, soluong: args.soluong, clothes: args.clothesId })
-             await res.save();
-      } 
-      const success  = 'done'
-        return success
+      else {
+        const res = new Cart({ user: query[0]._id, soluong: args.soluong, clothes: args.clothesId });
+        await res.save();
+      }
+      const success = 'done'
+      return success
     }
 
   }

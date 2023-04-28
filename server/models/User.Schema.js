@@ -4,7 +4,10 @@ const schema = new mongoose.Schema({
         type:String,
         require:true
     },
-    name: {
+    firstname: {
+        type:String,
+    },
+    lastname: {
         type:String,
     },
     password: {
