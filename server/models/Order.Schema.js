@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 const schema = new mongoose.Schema({ 
     
-    orderbyid:{
+    user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    clothes:[{
+        type:String,
+        require:true
+    }],
     soluong: {
         type:Number,
         require:true

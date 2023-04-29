@@ -2,9 +2,25 @@ import * as Query from "../../graphql/Query.jsx";
 import Loading from "./../../pages/Loading";
 import Error from "./../../pages/Error";
 import { useQuery } from "@apollo/client";
+import { BsPlusCircle } from "react-icons/bs";
+import { AiOutlineMinusCircle, AiOutlineDelete } from "react-icons/ai";
+import * as Mutation from "../../graphql/Mutation.jsx";
+import { useMutation } from "@apollo/client";
 export default function Contentcard() {
-  const { loading, error, data } = useQuery(Query.getCart,{
-    pollInterval:500
+  const { loading, error, data } = useQuery(Query.getCart, {
+    pollInterval: 500,
+  });
+  const [addToCart] = useMutation(Mutation.addCart, {
+    onError: (error) => console.log(error),
+    onCompleted: (data) => console.log(data),
+  });
+  const [deleteCart] = useMutation(Mutation.deleteCart, {
+    onError: (error) => console.log(error),
+    onCompleted: (data) => console.log(data),
+  });
+  const [order] = useMutation(Mutation.order, {
+    onError: (error) => alert(error),
+    onCompleted: (data) => alert('Đặt hàng thành công!'),
   });
   if (loading) return <Loading />;
   if (error) return <Error />;
@@ -16,6 +32,12 @@ export default function Contentcard() {
       currency: "VND",
     });
     return tien;
+  };
+  const addCart = async (clothesId) => {
+    await addToCart({ variables: { clothesId: clothesId, soluong: 1 } });
+  };
+  const minusCart  = async (clothesId) => {
+    await addToCart({ variables: { clothesId: clothesId, soluong: -1 } });
   };
   return (
     <div>
@@ -69,13 +91,17 @@ export default function Contentcard() {
                     {content.soluong}
                   </div>
                   <div className="border w-2/12  h-32 flex justify-center items-center">
-                    {formattedAmount(parseInt(content.soluong) *
-                      parseInt(content.clothes[0].giatien))}
+                    {formattedAmount(
+                      parseInt(content.soluong) *
+                        parseInt(content.clothes[0].giatien)
+                    )}
                   </div>
                   <div className="border w-2/12 h-32 flex justify-center items-center">
-                        <div>
-                              
-                        </div>
+                    <div className="flex gap-5 justify-center items-center w-full h-full ">
+                      <BsPlusCircle className="w-1/5 h-1/5  text-green-500 cursor-pointer" onClick={()=>{addCart(content.clothes[0]._id)}}/>
+                      <AiOutlineMinusCircle className="w-1/5 h-1/5 text-orange-500 cursor-pointer" onClick={()=>{minusCart(content.clothes[0]._id)}}/>
+                      <AiOutlineDelete className="w-1/5 h-1/4 text-red-500 cursor-pointer" onClick={()=>{deleteCart({ variables: { clothesId: content.clothes[0]._id}})}}/>
+                    </div >
                   </div>
                 </div>
               );
@@ -89,7 +115,7 @@ export default function Contentcard() {
           <div
             className="rounded p-4 w-32 mr-2 flex items-center justify-center bg-red-700 cursor-pointer text-xl font-fontcuong
           text-white"
-          >
+          onClick={()=>{order()}}>
             Đặt hàng
           </div>
         </div>

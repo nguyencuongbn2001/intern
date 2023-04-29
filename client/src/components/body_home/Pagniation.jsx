@@ -1,4 +1,4 @@
-import React from "react";
+
 import { BiArrowBack } from "react-icons/bi";
 import { GrLinkNext } from "react-icons/gr";
 export default function Pagniation() {

@@ -1,10 +1,12 @@
+
 const typeDefs = `#graphql
   type User{
      email:String!,
      password:String!,
-     name:String,
+     firstname:String,
+     lastname:String,
      address:String,
-     phone:Int,
+     phone:String,
      level:String!,
      Token:String,
      RefreshToken:String
@@ -36,13 +38,17 @@ const typeDefs = `#graphql
     getDetailClothes(clothesId: String!):Clothes,
     getCart:[Cart],
     getSoluongCart:Cart,
-    getUser(firstname:String,lastname:String,phone:Int,address:String):User
+    getUser:User
+
   },
   type Mutation{
     addUser(email:String!, password:String!):User, 
-    addClothes( name:String!,chatlieu:String!,xuatxu:String!, soluong:Int!, giatien:Int!,theloai:String!,hinhanh:String!, mathang:String!):Clothes
+    addClothes(name:String!,chatlieu:String!,xuatxu:String!, soluong:Int!, giatien:Int!,theloai:String!,hinhanh:String!, mathang:String!):Clothes
     login(email:String!, password:String!):User,
-    addCart(clothesId:ID!,soluong:Int!):Cart 
+    addCart(clothesId:ID!,soluong:Int!):Cart,
+    updateUser(firstname:String,lastname:String,phone:String,address:String):User,
+    deleteCart(clothesId:ID!):Cart,
+    order:Order
   }
 `;
 export { typeDefs }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CardOrder from "./Card.Order";
 import CardInfo from "./Card.Info";
 

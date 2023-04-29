@@ -40,6 +40,14 @@ query GetCart {
     soluong
   }
 }`;
-
+const getUser = gql`
+query Query {
+  getUser {
+    firstname
+    phone
+    address
+    lastname
+  }
+}`
 // eslint-disable-next-line react-refresh/only-export-components
-export {getAllClothes,getDetailClothes,getCart,soluongCart}
+export {getAllClothes,getDetailClothes,getCart,soluongCart,getUser}

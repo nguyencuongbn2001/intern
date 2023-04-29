@@ -5,12 +5,10 @@ import Inputmodal from "./Input.modal";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
 import * as Mutation from '../../graphql/Mutation.jsx';
-import { useNavigate } from "react-router-dom";
-
 export default function Modal() {
   const { register, handleSubmit,reset } = useForm();
-  const navigate  = useNavigate()
-  const { opencardlogin,setopencardlogin,setislogin } = useContext(MyContext);
+  
+  const { opencardlogin,setopencardlogin } = useContext(MyContext);
   const [isloginform,setisloginform ]= useState(true);
    const [registerUser] = useMutation(Mutation.registerUser,{
     onError: (error) => alert(error),
@@ -53,8 +51,8 @@ export default function Modal() {
           <GiCancel className="mt-1 cursor-pointer h-6 w-6 text-slate-400 absolute right-0 top-0 lg:w-8 lg:h-8" onClick ={()=>{setopencardlogin(false)}}></GiCancel>
        </div>
 
-        <Inputmodal register={register} label={'Email'} required/>
-        <Inputmodal register={register} label={'Password'} type={'password'} required/>
+        <Inputmodal register={register} registerlabel={'Email'} label={'Email'} required/>
+        <Inputmodal register={register} registerlabel={'Password'} label={'Password'} type={'password'} required/>
 
         <button type="submit"
           className="bg-red-500 w-10/12 h-12 lg:ml-12  ml-4 md:ml-10 rounded  flex items-center justify-center text-white 
@@ -94,9 +92,6 @@ export default function Modal() {
       </div>
     </div>
     </form>}
-        
     </>
-    
-    
   );
 }

@@ -13,7 +13,6 @@ import mongoose from 'mongoose';
 import { verifyToken } from './AuthJWT/Jwt.js';
 import * as dotenv from 'dotenv';
 import { GraphQLError } from 'graphql';
-
 dotenv.config()
 const app = express();
 const httpServer = http.createServer(app);

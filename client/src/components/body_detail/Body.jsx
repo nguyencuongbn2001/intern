@@ -2,7 +2,19 @@ import Header_body from "../header/Header.body";
 import Nameproduct from "./Name.product";
 import Imageproduct from "./Image.product";
 import Detailproduct from "./Detail.product";
+import { useMutation } from "@apollo/client";
+import * as Mutation from "../../graphql/Mutation.jsx";
+import { useContext } from "react";
+import { MyContext } from "../context/Context";
+import { useParams } from "react-router-dom";
 export default function Bodydetail(props) {
+  const { clothesId } = useParams();
+  const {setsoluongcart, soluongcart } =useContext(MyContext);
+  const [addToCart] = useMutation(Mutation.addCart, {
+    onError: (error) => console.log(error),
+    onCompleted: (data) => console.log(data),
+    update: () => setsoluongcart(soluongcart + 1),
+  });
   return (
     <div className="w-full h-full">
       <Header_body info={"Thông tin sản phẩm"} />
@@ -38,7 +50,7 @@ export default function Bodydetail(props) {
       text-sm 
       lg:ml-40
        mt-6"
-            >
+           onClick={()=>{addToCart({variables:{ clothesId: clothesId, soluong: 1 }})}} >
               Thêm giỏ hàng
             </div>
           </div>

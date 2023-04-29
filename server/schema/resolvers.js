@@ -1,6 +1,7 @@
 import { User } from '../models/User.Schema.js';
 import { Clothes } from '../models/Clothes.Schema.js';
 import { Cart } from '../models/Cart.Schema.js';
+import { Order } from '../models/Order.Schema.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 const saltRounds = 10;
@@ -45,7 +46,6 @@ const resolvers = {
       }
       const query = await User.find().where('email').equals(`${context.email}`)
       const res = await Cart.find().where('user').equals(query[0]._id);
-      console.log("🚀 ~ file: resolvers.js:48 ~ getCart: ~ query:", query)
       return res
     },
     getSoluongCart: async (parent, args, context) => {
@@ -70,30 +70,17 @@ const resolvers = {
       }
       if (data) return data
     },
-    getUser: async (parent, args, context)=>{
-      let data = [];
-      const query = await User.find().where('email').equals(`${context.email}`)
-      if (!query) {
-        throw new GraphQLError('Có lỗi xảy ra', {
+    getUser: async(parent, args, context)=>{
+      if (!context.email) {
+        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năng này', {
           extensions: {
-            code: 'BAD_USER',
+            code: 'BAD_USER_INPUT',
           },
         })
       }
-      if(args.phone)
-      {
-        if(validator.isMobilePhone(String(args.phone),['vi-VN']) === false){
-          throw new GraphQLError('Số điện thoại không hợp lệ', {
-            extensions: {
-              code: 'BAD_USER_INPUT',
-            },
-          })
-        }
-      }
-      
-       
+      const query = await User.find().where('email').equals(`${context.email}`);
+      return query[0]
     }
-
   },
   Cart: {
     clothes: async (parent, args, context) => {
@@ -194,6 +181,9 @@ const resolvers = {
         const data = await Cart.find().where('user').equals(query[0]._id).where('clothes').equals(args.clothesId)
         if (data.length !== 0) {
           let soluongnew = parseInt(data[0].soluong) + parseInt(args.soluong);
+          if(soluongnew < 1){
+           await Cart.findByIdAndDelete(data[0]._id);
+          }
           await Cart.findByIdAndUpdate(data[0]._id, { soluong: soluongnew })
         }
         else {
@@ -207,8 +197,99 @@ const resolvers = {
       }
       const success = 'done'
       return success
+    },
+    updateUser: async (parent, args, context)=>{
+      const query = await User.find().where('email').equals(`${context.email}`)
+      if (!query) {
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'BAD_USER',
+          },
+        })
+      }
+      
+      if(args.phone)
+      {
+        if(validator.isMobilePhone(String(args.phone),['vi-VN']) === false){
+          throw new GraphQLError('Số điện thoại không hợp lệ', {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+            },
+          })
+        }
+        await User.findByIdAndUpdate(query[0]._id,{phone:args.phone})
+      }
+      if(args.firstname){
+        await User.findByIdAndUpdate(query[0]._id,{firstname:args.firstname})
+      }
+      if(args.lastname)
+      {
+        await User.findByIdAndUpdate(query[0]._id,{lastname:args.lastname})
+      }
+      if(args.address)
+      {
+        await User.findByIdAndUpdate(query[0]._id,{address:args.address})
+      }
+      const success ='done';
+      return success
+    },
+    deleteCart: async(parent, args, context)=>{
+      if (!context.email) {
+        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+          },
+        })
+      }
+      const query = await User.find().where('email').equals(`${context.email}`)
+      if (!query) {
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'BAD_USER',
+          },
+        })
+      }
+      const data = await Cart.find().where('user').equals(query[0]._id).where('clothes').equals(args.clothesId)
+      await Cart.findByIdAndDelete(data[0]._id);
+      let success  = 'success';
+      return success
+    },
+    order:async(parent, args, context)=>{
+      if (!context.email) {
+        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+          },
+        })
+      }
+      const query = await User.find().where('email').equals(`${context.email}`)
+      if (!query) {
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'BAD_USER',
+          },
+        })
+      }
+      const data = await Cart.find().where('user').equals(query[0]._id);
+      if(data.length > 0){
+        for(let i = 0 ; i<data.length ; i++)
+      {
+        const res  =  new Order({user:data[i].user,clothes:data[i].clothes,clothes:data[i].clothes,soluong:data[i].soluong,status:'Chưa xác nhận'});
+        await  res.save()
+        await Cart.findByIdAndDelete(data[i]._id)
+      }
+      
+      }else{
+        throw new GraphQLError('Vui lòng thêm món hàng vào giỏ hàng', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+          },
+        })
+      }
+      let success  = [] ;
+      success.status = 'done';
+      return success
     }
-
   }
 };
 let generateAccessToken = (email, role) => {

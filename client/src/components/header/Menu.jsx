@@ -3,7 +3,7 @@ import React,{useContext} from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/Context";
 export default function Menu() {
-  const {setmathang} = useContext(MyContext)
+  const {mathang,setmathang} = useContext(MyContext)
   return (
     <>
       <ul
@@ -16,7 +16,7 @@ export default function Menu() {
       >
         <li className=" ct-menu " onClick={()=>{setmathang("Áo")}}>
           <Link>
-            <span>Áo</span>
+            <span className={`${mathang === 'Áo' && "text-blue-500"}`}>Áo</span>
           </Link>
         </li>
         <li onClick={()=>{setmathang("Quần")}}
@@ -24,7 +24,7 @@ export default function Menu() {
                     "
         >
           <Link>
-            <span>Quần</span>
+            <span className={`${mathang === 'Quần' && "text-blue-500"}`}>Quần</span>
           </Link>
         </li>
         <li onClick={()=>{setmathang("Giày")}}
@@ -32,7 +32,7 @@ export default function Menu() {
                     "
         >
           <Link>
-            <span>Giày</span>
+            <span className={`${mathang === 'Giày' && "text-blue-500"}`}>Giày</span>
           </Link>
         </li>
         <li onClick={()=>{setmathang("Đồng Hồ")}}
@@ -40,7 +40,7 @@ export default function Menu() {
                     "
         >
           <Link>
-            <span>Đồng Hồ</span>
+            <span className={`${mathang === 'Đồng Hồ' && "text-blue-500"}`}>Đồng Hồ</span>
           </Link>
         </li>
       </ul>

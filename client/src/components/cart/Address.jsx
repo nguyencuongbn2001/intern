@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Address(props) {
+export default function Address() {
   return (
     <>
         <span className="font-fontcuong text-lg">Địa chỉ đặt hàng:</span>
