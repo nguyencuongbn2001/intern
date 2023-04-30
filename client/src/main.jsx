@@ -7,9 +7,11 @@ import { ApolloClient,createHttpLink, InMemoryCache, ApolloProvider } from '@apo
 import router from "./routes";
 import { setContext } from '@apollo/client/link/context';
 
+
+
 const httpLink = createHttpLink({
   // eslint-disable-next-line no-undef
-  uri: 'http://localhost:8080/graphql',
+  uri: 'https://nguyencuong-server.onrender.com/graphql',
 });
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
