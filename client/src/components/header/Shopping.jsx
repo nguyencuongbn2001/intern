@@ -37,7 +37,7 @@ export default function Shopping() {
         <div
           style={{ backgroundImage: `url(${logologin})` }}
           className=" group lg:w-10 lg:h-10 ml-5 bg-contain bg-no-repeat w-20px h-20px relative"
-        > <span className="absolute left-12 top-3 hidden lg:block">User</span>
+        > 
           <div className="absolute left-5 top-10 ">
             <div onClick={()=>{navigate('/user')}} className="font-fontcuong text-base font-semibold cursor-pointer bg-slate-100 hidden group-hover:block  hover:bg-slate-200 border rounded px-4 py-2">
               Accout
