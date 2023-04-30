@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export const MyContext = React.createContext();
 // eslint-disable-next-line react/prop-types
 
+// eslint-disable-next-line react/prop-types
 const ContextProvide = ({ children }) => {
   const [opencardlogin,setopencardlogin] = useState(false);
   const [giatien,setgiatien] = useState(null)

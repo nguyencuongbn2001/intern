@@ -30,6 +30,13 @@ export default function Content() {
   };
   if (loading) return <Loading />;
   if (error) return <Error />;
+  const formattedAmount = (amount) => {
+    const tien = amount.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return tien;
+  };
   return (
     <>
       <div className="flex flex-col">
@@ -73,7 +80,7 @@ export default function Content() {
                 <div className="w-full text-center uppercase overflow-hidden">
                   {content.name}
                 </div>
-                <div className="w-full text-center ">{content.giatien}</div>
+                <div className="w-full text-center ">{formattedAmount(content.giatien)}</div>
                 <div
                   onClick={() => {
                     addCart(content._id);
@@ -105,7 +112,7 @@ export default function Content() {
             );
           })}
         </div>
-        <Pagniation />
+        {/* <Pagniation /> */}
       </div>
     </>
   );

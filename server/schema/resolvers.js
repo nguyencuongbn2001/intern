@@ -37,10 +37,10 @@ const resolvers = {
       return res
     },
     getCart: async (parent, args, context) => {
-      if (!context.email) {
-        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năng này', {
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
           extensions: {
-            code: 'BAD_USER_INPUT',
+            code: 'unauthorization',
           },
         })
       }
@@ -71,18 +71,36 @@ const resolvers = {
       if (data) return data
     },
     getUser: async(parent, args, context)=>{
-      if (!context.email) {
-        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năng này', {
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
           extensions: {
-            code: 'BAD_USER_INPUT',
+            code: 'unauthorization',
           },
         })
       }
       const query = await User.find().where('email').equals(`${context.email}`);
       return query[0]
-    }
+    },
+    getOrder:async (parent, args, context) => {
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'unauthorization',
+          },
+        })
+      }
+      const query = await User.find().where('email').equals(`${context.email}`)
+      const res = await Order.find().where('user').equals(query[0]._id);
+      return res
+    },
   },
   Cart: {
+    clothes: async (parent, args, context) => {
+      const clothes = await Clothes.findById(parent.clothes);
+      return [clothes]
+    }
+  },
+  Order:{
     clothes: async (parent, args, context) => {
       const clothes = await Clothes.findById(parent.clothes);
       return [clothes]
@@ -161,9 +179,9 @@ const resolvers = {
     },
     addCart: async (parent, args, context) => {
       if (!context.email) {
-        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
+        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năng này', {
           extensions: {
-            code: 'BAD_USER_INPUT',
+            code: 'authorization',
           },
         })
       }
@@ -199,6 +217,13 @@ const resolvers = {
       return success
     },
     updateUser: async (parent, args, context)=>{
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
+          extensions: {
+            code: 'unauthorization',
+          },
+        })
+      }
       const query = await User.find().where('email').equals(`${context.email}`)
       if (!query) {
         throw new GraphQLError('Có lỗi xảy ra', {
@@ -234,10 +259,10 @@ const resolvers = {
       return success
     },
     deleteCart: async(parent, args, context)=>{
-      if (!context.email) {
-        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
           extensions: {
-            code: 'BAD_USER_INPUT',
+            code: 'unauthorization',
           },
         })
       }
@@ -255,10 +280,10 @@ const resolvers = {
       return success
     },
     order:async(parent, args, context)=>{
-      if (!context.email) {
-        throw new GraphQLError('Vui lòng đăng nhập để sử dụng chức năngn này', {
+      if(!context.email){
+        throw new GraphQLError('Có lỗi xảy ra', {
           extensions: {
-            code: 'BAD_USER_INPUT',
+            code: 'unauthorization',
           },
         })
       }

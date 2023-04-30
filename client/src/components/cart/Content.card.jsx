@@ -20,7 +20,7 @@ export default function Contentcard() {
   });
   const [order] = useMutation(Mutation.order, {
     onError: (error) => alert(error),
-    onCompleted: (data) => alert('Đặt hàng thành công!'),
+    onCompleted: () => alert('Đặt hàng thành công!'),
   });
   if (loading) return <Loading />;
   if (error) return <Error />;

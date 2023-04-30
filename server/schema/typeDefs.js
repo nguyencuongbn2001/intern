@@ -38,8 +38,8 @@ const typeDefs = `#graphql
     getDetailClothes(clothesId: String!):Clothes,
     getCart:[Cart],
     getSoluongCart:Cart,
-    getUser:User
-
+    getUser:User,
+    getOrder:[Order]
   },
   type Mutation{
     addUser(email:String!, password:String!):User, 

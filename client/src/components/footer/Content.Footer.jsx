@@ -1,4 +1,3 @@
-import React from "react";
 import {RiCopyrightLine} from 'react-icons/ri'
 export default function ContentFooter() {
   return (

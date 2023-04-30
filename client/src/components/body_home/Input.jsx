@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { MyContext } from "../context/Context";
-import React, { useContext } from "react";
+import { useContext } from "react";
 export default function Input(props) {
     const {settheloai} = useContext(MyContext)
   return (

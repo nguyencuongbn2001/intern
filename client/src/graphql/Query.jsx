@@ -48,6 +48,19 @@ query Query {
     address
     lastname
   }
-}`
+}`;
+const getOrder = gql`
+query GetOrder {
+  getOrder {
+    status
+    soluong
+    clothes {
+      giatien
+      hinhanh
+      name
+    }
+  }
+}
+`;
 // eslint-disable-next-line react-refresh/only-export-components
-export {getAllClothes,getDetailClothes,getCart,soluongCart,getUser}
+export {getAllClothes,getDetailClothes,getCart,soluongCart,getUser,getOrder}

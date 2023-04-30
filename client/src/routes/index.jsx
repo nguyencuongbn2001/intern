@@ -6,7 +6,7 @@ import Error from "../pages/Error.jsx";
 import Detail from "../pages/Detail.jsx";
 import Cart from "../pages/Cart.jsx";
 import ContextProvide from "../components/context/Context.jsx";
-import Loading from "../pages/Loading.jsx";
+
 import User from "../pages/User.jsx";
 // eslint-disable-next-line react-refresh/only-export-components
 const Root = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Header_body from "../header/Header.body";
 import Nameproduct from "./Name.product";
 import Imageproduct from "./Image.product";

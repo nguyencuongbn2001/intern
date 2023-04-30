@@ -1,4 +1,5 @@
 import React from "react";
+
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
@@ -7,6 +8,7 @@ import router from "./routes";
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
+  // eslint-disable-next-line no-undef
   uri: 'http://localhost:8080/graphql',
 });
 const authLink = setContext((_, { headers }) => {
