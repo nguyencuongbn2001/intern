@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { MyContext } from "../context/Context";
 import { AiFillHeart, AiOutlineDollarCircle } from "react-icons/ai";
-import Input from "./input";
+import Input from "./input.jsx";
 export default function Sidebar() {
   const { setgiatien, mathang } = useContext(MyContext);
   return (
