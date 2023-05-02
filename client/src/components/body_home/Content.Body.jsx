@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState, useContext } from "react";
-import Pagniation from "./Pagniation";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import * as Query from "../../graphql/Query.jsx";
