@@ -16,7 +16,7 @@ export default function Content() {
     variables: { giatien, mathang, theloai },
   });
   const [addToCart] = useMutation(Mutation.addCart, {
-    onError: (error) => console.log(error),
+    onError: (error) => alert(error),
     onCompleted: (data) => console.log(data),
     update: () => setsoluongcart(soluongcart + 1),
   });
